@@ -1,3 +1,3 @@
 #!/usr/bin/python3
-number = 3.141
-print(f"Float: {number:.2f}")
+number = 3.1415
+print("Float: {:.2f}".format(number))
