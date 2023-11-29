@@ -1,9 +1,9 @@
 #!/usr/bin/python3
-def custom_remove_char_at(string, index):
-    new_string = ""
-    for i in range(len(string)):
-        if i == index:
+def remove_char_at(str, n):
+    newStr = ""
+    for i in range(len(str)):
+        if i == n:
             continue
         else:
-            new_string += string[i]
-    return new_string
+            newStr += str[i]
+    return newStr
