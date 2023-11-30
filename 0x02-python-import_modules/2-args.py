@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 
 if __name__ == "__main__":
-    """Simple application to print the count and list of arguments."""
+    """Print the count and list of arguments."""
     import sys
 
     count = len(sys.argv) - 1
