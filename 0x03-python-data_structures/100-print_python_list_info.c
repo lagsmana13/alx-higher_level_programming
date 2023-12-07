@@ -1,5 +1,4 @@
 #include <stdio.h>
-#include <Python.h>
 
 /**
  * print_python_list_info - displays information about Python lists
@@ -7,7 +6,7 @@
  *
  * Return: void
  */
-void print_python_list_info(PyObject *p)
+void print_python_list_info(PyObject *p);
 {
     long int list_size, a, i;
 
