@@ -1,11 +1,18 @@
 #!/usr/bin/python3
-def safe_print_list_integers(my_list=[], x=0):
-    i = 0
-    for j in range(x):
+def list_division(my_list_1, my_list_2, list_length):
+    new_list = []
+    for i in range(list_length):
         try:
-            print("{:d}".format(my_list[j]), end="")
-            i += 1
-        except(ValueError, TypeError):
-            continue
-    print()
-    return i
+            result = my_list_1[i] / my_list_2[i]
+        except (ValueError, TypeError):
+            print("wrong type")
+            result = 0
+        except ZeroDivisionError:
+            print("division by 0")
+            result = 0
+        except IndexError:
+            print("out of range")
+            result = 0
+        finally:
+            new_list.append(result)
+    return new_list
