@@ -1,12 +1,10 @@
 #!/usr/bin/python3
-"""
-This module contains the "Square" class, a subclass of Rectangle.
-"""
+"""Defines a square class."""
 from models.rectangle import Rectangle
 
 
 class Square(Rectangle):
-    """Represents a square."""
+    """Represent a square."""
 
     def __init__(self, size, x=0, y=0, id=None):
         """Initialize a new Square.
@@ -21,12 +19,11 @@ class Square(Rectangle):
 
     @property
     def size(self):
-        """Get or set the size of the Square."""
+        """Get/set the size of the Square."""
         return self.width
 
     @size.setter
     def size(self, value):
-        """Set the size of the Square."""
         self.width = value
         self.height = value
 
@@ -34,7 +31,7 @@ class Square(Rectangle):
         """Update the Square.
 
         Args:
-            *args (int): New attribute values.
+            *args (ints): New attribute values.
                 - 1st argument represents id attribute
                 - 2nd argument represents size attribute
                 - 3rd argument represents x attribute
@@ -81,10 +78,6 @@ class Square(Rectangle):
         }
 
     def __str__(self):
-        """Return the string representation of the Square.
-
-        Returns:
-            str: The string representation of the Square.
-        """
+        """Return the print() and str() representation of a Square."""
         return "[Square] ({}) {}/{} - {}".format(self.id, self.x, self.y,
                                                  self.width)

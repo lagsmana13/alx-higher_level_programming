@@ -1,4 +1,5 @@
 #!/usr/bin/python3
+
 """Defines a base model class."""
 import json
 import csv
@@ -6,21 +7,21 @@ import turtle
 
 
 class Base:
-    """Represents the base model.
+    """Base model.
 
-    This serves as the base class for all other classes in project 0x0C*.
-    
-    Attributes:
-        __nb_objects (int): The number of instantiated Bases.
+    This class represents the base model for all other classes in the project.
+
+    Private Class Attributes:
+        __nb_objects (int): Number of instantiated Base objects.
     """
 
     __nb_objects = 0
 
     def __init__(self, id=None):
-        """Initialize a new Base.
+        """Initialize a new Base object.
 
         Args:
-            id (int): The identity of the new Base.
+            id (int): The identity of the new Base object.
         """
         if id is not None:
             self.id = id
@@ -34,9 +35,6 @@ class Base:
 
         Args:
             list_dictionaries (list): A list of dictionaries.
-        
-        Returns:
-            str: The JSON representation of the list of dictionaries.
         """
         if list_dictionaries is None or list_dictionaries == []:
             return "[]"
@@ -62,10 +60,10 @@ class Base:
         """Return the deserialization of a JSON string.
 
         Args:
-            json_string (str): A JSON str representation of a list of dicts.
-        
+            json_string (str): A JSON string representation of a list of dictionaries.
         Returns:
-            list: The Python list represented by json_string.
+            If json_string is None or empty - an empty list.
+            Otherwise - the Python list represented by json_string.
         """
         if json_string is None or json_string == "[]":
             return []
@@ -73,13 +71,10 @@ class Base:
 
     @classmethod
     def create(cls, **dictionary):
-        """Return a class instantiated from a dictionary of attributes.
+        """Return an instance of the class created from a dictionary of attributes.
 
         Args:
             **dictionary (dict): Key/value pairs of attributes to initialize.
-        
-        Returns:
-            Base: An instance of the class with attributes from the dictionary.
         """
         if dictionary and dictionary != {}:
             if cls.__name__ == "Rectangle":
@@ -91,12 +86,13 @@ class Base:
 
     @classmethod
     def load_from_file(cls):
-        """Return a list of classes instantiated from a file of JSON strings.
+        """Return a list of instances of the class instantiated from a file of JSON strings.
 
         Reads from `<cls.__name__>.json`.
-        
+
         Returns:
-            list: A list of instantiated classes.
+            If the file does not exist - an empty list.
+            Otherwise - a list of instantiated class instances.
         """
         filename = str(cls.__name__) + ".json"
         try:
@@ -128,12 +124,13 @@ class Base:
 
     @classmethod
     def load_from_file_csv(cls):
-        """Return a list of classes instantiated from a CSV file.
+        """Return a list of instances of the class instantiated from a CSV file.
 
         Reads from `<cls.__name__>.csv`.
-        
+
         Returns:
-            list: A list of instantiated classes.
+            If the file does not exist - an empty list.
+            Otherwise - a list of instantiated class instances.
         """
         filename = cls.__name__ + ".csv"
         try:
@@ -146,47 +143,53 @@ class Base:
                 list_dicts = [dict([k, int(v)] for k, v in d.items())
                               for d in list_dicts]
                 return [cls.create(**d) for d in list_dicts]
-        except IOError:
+        exceptIOError:
             return []
 
-```python
     @staticmethod
     def draw(list_rectangles, list_squares):
-        """Draw Rectangles and Squares using the turtle module.
+        """Draw rectangles and squares using the turtle module.
 
         Args:
-            list_rectangles (list): A list of Rectangle objects to draw.
-            list_squares (list): A list of Square objects to draw.
+            list_rectangles (list): A list of Rectangle objects.
+            list_squares (list): A list of Square objects.
         """
-        turt = turtle.Turtle()
-        turt.screen.bgcolor("#b7312c")
-        turt.pensize(3)
-        turt.shape("turtle")
+        # Turtle setup
+        turtle.setup(800, 600)
+        screen = turtle.Screen()
+        screen.title("Drawing Rectangles and Squares")
+        screen.bgcolor("white")
+        pen = turtle.Turtle()
+        pen.speed(2)
 
-        turt.color("#ffffff")
-        for rect in list_rectangles:
-            turt.showturtle()
-            turt.up()
-            turt.goto(rect.x, rect.y)
-            turt.down()
-            for _ in range(2):
-                turt.forward(rect.width)
-                turt.left(90)
-                turt.forward(rect.height)
-                turt.left(90)
-            turt.hideturtle()
+        # Draw rectangles
+        for rectangle in list_rectangles:
+            pen.penup()
+            pen.goto(rectangle.x, rectangle.y)
+            pen.pendown()
+            pen.color("black")
+            pen.forward(rectangle.width)
+            pen.left(90)
+            pen.forward(rectangle.height)
+            pen.left(90)
+            pen.forward(rectangle.width)
+            pen.left(90)
+            pen.forward(rectangle.height)
+            pen.left(90)
 
-        turt.color("#b5e3d8")
-        for sq in list_squares:
-            turt.showturtle()
-            turt.up()
-            turt.goto(sq.x, sq.y)
-            turt.down()
-            for _ in range(2):
-                turt.forward(sq.width)
-                turt.left(90)
-                turt.forward(sq.height)
-                turt.left(90)
-            turt.hideturtle()
+        # Draw squares
+        for square in list_squares:
+            pen.penup()
+            pen.goto(square.x, square.y)
+            pen.pendown()
+            pen.color("red")
+            pen.forward(square.size)
+            pen.left(90)
+            pen.forward(square.size)
+            pen.left(90)
+            pen.forward(square.size)
+            pen.left(90)
+            pen.forward(square.size)
+            pen.left(90)
 
-        turtle.exitonclick()
+        turtle.done()
